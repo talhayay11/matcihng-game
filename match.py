@@ -26,11 +26,11 @@ class MatchGame:
         }
 
         self.paragraphs = [
-            "They ____ to Paris by Turkish Airlines.",
+            "They ____ to Paris by Turkish Airlines last week.",
             "Patrick ____ playing soccer at the age of seven.",
             "Rosa ____ very early this morning because she had an exam.",
-            "Our trainer ____ Cansu’s talent and advised her to play for a volleyball club",
-            "Mrs. Jones ____ her students a lecture on legendary figures and great people in history.",
+            "Our trainer ____ Cansu’s talent and advised her to play for a volleyball club when she was a kid.",
+            "Mrs. Jones ____ her students a lecture on legendary figures and great people in history yesterday.",
         ]
 
         self.correct_matches = {
