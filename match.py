@@ -9,6 +9,9 @@ class MatchGame:
         self.root.attributes("-fullscreen", True)
         self.root.configure(bg="white")
 
+        self.title_label = tk.Label(self.root, text="Complete the sentences with the given words in “Simple Past”.", bg="white", fg="black", font=("Arial", 24, "bold"))
+        self.title_label.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
+
         self.canvas_frame = tk.Frame(self.root, width=800, height=600, bg="lightblue")
         self.canvas_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
@@ -48,17 +51,17 @@ class MatchGame:
             paragraph_part1 = paragraph.split("____")[0]
             paragraph_part2 = paragraph.split("____")[1]
 
-            label1 = tk.Label(self.canvas_frame, text=paragraph_part1, bg="lightblue", padx=20, pady=12, font=("Arial", 18))
-            label1.grid(row=i, column=0, sticky="e", padx=(100, 5))
+            label1 = tk.Label(self.canvas_frame, text=paragraph_part1, bg="white", padx=20, pady=12, font=("Arial", 16))
+            label1.grid(row=i, column=0, sticky="e", padx=(20, 5))
 
-            drop_label = tk.Label(self.canvas_frame, text="____", bg="lightblue", width=12, padx=20, pady=12, relief="solid", bd=2, font=("Arial", 18))
-            drop_label.grid(row=i, column=1, padx=20, pady=10)
+            drop_label = tk.Label(self.canvas_frame, text="____", bg="lightblue", width=12, padx=20, pady=12, relief="solid", bd=2, font=("Arial", 16))
+            drop_label.grid(row=i, column=1, padx=1, pady=10)
             self.drop_labels.append(drop_label)
 
-            label2 = tk.Label(self.canvas_frame, text=paragraph_part2, bg="white", padx=25, pady=12, font=("Arial", 18))
-            label2.grid(row=i, column=2, sticky="w", padx=(5, 200))
+            label2 = tk.Label(self.canvas_frame, text=paragraph_part2, bg="white", padx=25, pady=12, font=("Arial", 16))
+            label2.grid(row=i, column=2, sticky="w", padx=(5, 50))
 
-            label = tk.Label(self.canvas_frame, text=self.shuffled_words[i], bg="lightgray", padx=25, pady=12, relief="solid", bd=2, font=("Arial", 18))
+            label = tk.Label(self.canvas_frame, text=self.shuffled_words[i], bg="lightgray", padx=25, pady=12, relief="solid", bd=2, font=("Arial", 16))
             label.grid(row=i, column=3, padx=10, pady=10)
             label.bind("<Button-1>", self.start_drag)
             label.bind("<Button-3>", self.show_options)
@@ -68,7 +71,7 @@ class MatchGame:
 
         button_width = 20
 
-        check_button = tk.Button(self.canvas_frame, text="Sonuçları Kontrol Et", command=self.check_answers, width=button_width, padx=10, pady=5)
+        check_button = tk.Button(self.canvas_frame, text="Check The Answers", command=self.check_answers, width=button_width, padx=10, pady=5)
         check_button.grid(row=len(self.paragraphs), column=0, pady=(20, 10))
 
         reset_button = tk.Button(self.canvas_frame, text="Reset", command=self.reset_game, width=button_width, padx=10, pady=5)
@@ -99,13 +102,11 @@ class MatchGame:
          option_button.pack(pady=10)
 
     def set_word_form(self, label, option, window):
-        """Seçilen kelime formunu güncelle"""
         label.config(text=option)
         window.destroy()
 
 
     def start_drag(self, event):
-      """Sürükleme işlemi başladığında çağrılır"""
       label = event.widget
       self.drag_data["word"] = label
       self.drag_data["offset_x"] = event.x_root - label.winfo_x()
@@ -117,7 +118,6 @@ class MatchGame:
       label.lift()
 
     def on_drag(self, event):
-        """Sürükleme işlemi sırasında çağrılır"""
         label = self.drag_data["word"]
         x = event.x_root - self.drag_data["offset_x"]
         y = event.y_root - self.drag_data["offset_y"]
@@ -140,7 +140,6 @@ class MatchGame:
       self.drag_data["word"] = None
 
     def is_overlapping(self, widget1, widget2):
-        """İki widget'ın üst üste gelip gelmediğini kontrol eder"""
         x1, y1, x2, y2 = widget1.winfo_rootx(), widget1.winfo_rooty(), widget1.winfo_rootx() + widget1.winfo_width(), widget1.winfo_rooty() + widget1.winfo_height()
         x1_d, y1_d, x2_d, y2_d = widget2.winfo_rootx(), widget2.winfo_rooty(), widget2.winfo_rootx() + widget2.winfo_width(), widget2.winfo_rooty() + widget2.winfo_height()
 
@@ -153,10 +152,9 @@ class MatchGame:
             if word in self.correct_matches and self.correct_matches[word] == i:
                 correct_count += 1
 
-        messagebox.showinfo("Sonuç", f"Doğru eşleştirmeler: {correct_count}/{len(self.words)}")
+        messagebox.showinfo("Result", f"Correct Answers: {correct_count}/{len(self.words)}")
 
     def reset_game(self):
-        """Oyunu sıfırlar"""
         for drop_label in self.drop_labels:
             drop_label.config(text="____", bg="lightblue")
 
@@ -165,7 +163,6 @@ class MatchGame:
          label.grid(row=i, column=4, padx=19, pady=10)
 
     def exit_game(self):
-        """Oyundan çıkış yapar"""
         self.root.quit()
 
 if __name__ == "__main__":
