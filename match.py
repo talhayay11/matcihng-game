@@ -31,11 +31,11 @@ class MatchGame:
         ]
 
         self.correct_matches = {
-            "start": 0,
-            "give": 1,
-            "fly": 2,
-            "notice": 3,
-            "get up": 4,
+            "flew": 0,
+            "started": 1,
+            "got up": 2,
+            "noticed": 3,
+            "gave": 4,
         }
 
         self.drag_data = {"word": None, "start_x": 0, "start_y": 0, "offset_x": 0, "offset_y": 0}
@@ -161,6 +161,7 @@ class MatchGame:
             drop_label.config(text="____", bg="lightblue")
 
         for i, label in enumerate(self.word_labels):
+         label.config(text=self.shuffled_words[i])
          label.grid(row=i, column=4, padx=19, pady=10)
 
     def exit_game(self):
